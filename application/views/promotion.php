@@ -1,0 +1,1 @@
+<img src=<?=$GLOBALS['base_url'].'/assets/product_img/xmas2018combos_homeslide.jpg'?> >
