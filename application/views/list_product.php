@@ -41,7 +41,7 @@
                             <span class="popup-title-prd" id="modal-productName" value=""></span>
                             <br>
                             <div class="row option">
-
+ 
                             </div>
                             <div class="row quantity-price">
                                 <div class="col-12 ">
