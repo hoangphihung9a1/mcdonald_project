@@ -41,16 +41,21 @@
                             <span class="popup-title-prd" id="modal-productName" value=""></span>
                             <br>
                             <div class="row option">
- 
+
                             </div>
                             <div class="row quantity-price">
-                                <div class="col-12 ">
-                                    <span style="font-weight: bold; font-size: 20px">SỐ LƯỢNG:</span>
-                                    <a class="btn btn-inc" onclick="quantity_dec()">-</a>
-                                    <input class="quantity" id="quantity" type="text" value="1">
-                                    <a class="btn btn-inc" onclick="quantity_inc()">+</a>
+                                <div class="col-12" >
+                                    <span style=" float: left;font-weight: bold; font-size: 20px">SỐ LƯỢNG:</span>
+                                    <div style="float: left;">
+                                        <a class="btn btn-inc" onclick="quantity_dec()">-</a>
+                                    </div>
+                                    <div style="float: left;">
+                                        <input class="quantity" id="quantity" type="text" value="1">
+                                    </div>
+                                    <div style="float: left;">
+                                        <a class="btn btn-inc" onclick="quantity_inc()">+</a>
+                                    </div>
                                     <a id="modal-price" class="price" ></a>
-
                                 </div>
                             </div>
                             <input id="modal-productId" value="" hidden>
@@ -87,6 +92,7 @@
         }
         function visible_bgd(x) {
             x.style.background='#bd0017';
+            // x.setAttribute('border','1px solid');
             var parent_id=x.id;
             var str_temp='btn_view_detail_';
             var ele_child_id=str_temp.concat(parent_id);
