@@ -108,7 +108,7 @@
             var f = document.createElement("form");
             f.setAttribute('id','f_cart');
             f.setAttribute('method',"post");
-            f.setAttribute('action','http://localhost:8080/demo/McDonald\'s/index.php/Cart/add_product');
+            f.setAttribute('action','<?=$GLOBALS['base_url'];?>'+'/index.php/Cart/add_product');
             f.setAttribute("target", "transFrame");
 
             //create iframe to submit f_cart
