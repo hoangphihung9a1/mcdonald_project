@@ -98,7 +98,6 @@
             var ele_child_id=str_temp.concat(parent_id);
             ele=document.getElementById(ele_child_id);
             ele.style.display='block';
-
         }
         function disable_bgd(x) {
             x.style.background='transparent';
@@ -115,7 +114,7 @@
            var f = document.createElement("form");
            f.setAttribute('id','f_cart');
            f.setAttribute('method',"post");
-           f.setAttribute('action','http://localhost:8080/demo/McDonald\'s/index.php/Cart/add_product');
+           f.setAttribute('action','<?=$GLOBALS['base_url'];?>'+'/index.php/Cart/add_product');
            f.setAttribute("target", "transFrame");
 
            //create iframe to submit f_cart
@@ -156,10 +155,11 @@
        }
 
         function click_modal(productId, productName, price, productImg) {
+
             document.getElementById("modal-productName").innerHTML = productName;
             document.getElementById("modal-productId").setAttribute('value',productId);
             document.getElementById("modal-price").innerHTML = price;
-            document.getElementById('modal-productImg').setAttribute('src','http://localhost:8080/demo/McDonald\'s/assets/product_img/'.concat(productImg));
+            document.getElementById('modal-productImg').setAttribute('src','<?=$GLOBALS['base_url'];?>'+'/assets/product_img/'.concat(productImg));
         }
     </script>
 
