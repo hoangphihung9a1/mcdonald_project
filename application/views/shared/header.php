@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light header">
+        <nav class="navbar navbar-expand-lg navbar-light header fixed-top">
             <span class="collapse navbar-collapse col-md-12 " id="navbarNav">
                 <ul class="navbar-nav">
                     <li>
@@ -39,9 +39,18 @@
                     <li class="nav-item nav-menu">
                         <a class="nav-link nav-header" href="#">Tin tức</a>
                     </li>
-                    <li class="nav-item nav-menu">
-                        <a class="nav-link nav-header" href="#">Liên hệ</a>
-                    </li>
+<!--                    <li class="nav-item nav-menu">-->
+<!--                        <a href="--><?//=$GLOBALS['base_url'].'/index.php/cart/view_cart' ?><!--" class="nav-link nav-header" href="#">Giỏ hàng</a>-->
+<!--                    </li>-->
+                    <a href="<?=$GLOBALS['base_url'].'/index.php/cart/view_cart' ?>" class="location">
+
+                        <img class="img-cart" src="<?=$GLOBALS['base_url'].'/assets/product_img/cart.png'?>">
+
+                        <div style="display: inline-block">
+                                <input id="total_cart" class="total_cart" value=<?=!isset($total_cart) ? 0 : $total_cart?> >
+                        </div>
+                    </a>
+
                     <a href="" class="location">
                         <img class="img-location" src="https://mcdonalds.vn/public/images/location.png">
                         <p style="display: inline-block"><span style="font-size: 12px"><span style="color: #ffffff">Hệ thống</span><br><span style="font-size: 15px; color: orange">Cửa hàng</span></p>
@@ -91,6 +100,8 @@
         background-color: #bd0017;
         width: 150px;
         height: 55px;
+        text-decoration-line: none !important;
+
     }
 
     .img-location{
@@ -116,6 +127,25 @@
 
     a{
         text-decoration-line: none !important;
+    }
+
+    .img-cart{
+        display: inline-block;
+        width: 45%;
+        padding: 0 0 0 20px;
+    }
+
+    .total_cart{
+        width: 30px;
+        height: 35px;
+        text-align: center;
+        border: none;
+        background-color: #bd0017;
+        /*margin-top: 15px;*/
+        margin-left: 15px;
+        padding-top: 16px;
+        color: white;
+        font-size: 20px;
     }
 </style>
 
