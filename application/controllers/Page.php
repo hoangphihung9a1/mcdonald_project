@@ -10,11 +10,11 @@ class Page extends CI_Controller{
         $input=$this->input->get('page');
         $this->load->model('menu_model');
         $menus=$this->menu_model->get('');
+        //get total_cart
         if($input=='header'){
             $this->load->view('/shared/'.$input,array('menus'=>$menus));
         }else{
             $this->load->view('/shared/'.$input);
-
         }
     }
 }

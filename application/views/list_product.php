@@ -2,6 +2,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <html>
+<script>
+    function convert_number(num){
+        return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+</script>
 <body>
     <div class="container">
         <div class="row">
@@ -13,9 +18,9 @@
                         <p class="infor_product">
                             <?php echo $product['ProductName'] ?>
                             <br>
-                            <b><?php echo $product['Price'] ?></b>
+                            <b><script>document.write(convert_number(<?=$product['Price']?>))</script></b>
                         </p>
-                        <button id=<?php echo 'btn_view_detail_'.$product['ProductId']?> class="view_detail_product" data-toggle="modal" data-target="#exampleModalCenter" onclick="click_modal('<?php echo $product['ProductId']?>','<?php echo $product['ProductName']?>','<?php echo $product['Price']?>','<?php echo $product['ImageLink']?>')" >CHỌN</button>
+                        <button id="<?php echo 'btn_view_detail_'.$product['ProductId']?>" class="view_detail_product" data-toggle="modal" data-target="#exampleModalCenter" onclick="click_modal('<?php echo $product['ProductId']?>','<?php echo $product['ProductName']?>','<?php echo $product['Price']?>','<?php echo $product['ImageLink']?>')" >CHỌN</button>
                     </a>
                 </div>
             <?php endforeach;?>
@@ -44,19 +49,19 @@
 
                             </div>
                             <div class="row quantity-price">
-                                <div class="col-12" >
+<!--                                <div class="col-12 col-12-cus" >-->
                                     <span style=" float: left;font-weight: bold; font-size: 20px">SỐ LƯỢNG:</span>
-                                    <div style="float: left;">
+                                    <div style="float: left;margin-left:5px ">
                                         <a class="btn btn-inc" onclick="quantity_dec()">-</a>
                                     </div>
-                                    <div style="float: left;">
+                                    <div style="float: left;margin-left:5px">
                                         <input class="quantity" id="quantity" type="text" value="1">
                                     </div>
-                                    <div style="float: left;">
+                                    <div style="float: left;margin-left:5px">
                                         <a class="btn btn-inc" onclick="quantity_inc()">+</a>
                                     </div>
-                                    <a id="modal-price" class="price" ></a>
-                                </div>
+                                    <span id="modal-price" class="price" ></span>
+<!--                                </div>-->
                             </div>
                             <input id="modal-productId" value="" hidden>
 
@@ -74,6 +79,8 @@
 
     <script>
 
+
+
         function get_val(element_id) {
             var ele=document.getElementById(element_id);
             return ele.value;
@@ -88,10 +95,9 @@
             var ele=document.getElementById('quantity');
             if(ele.value != 1)
                 ele.value = parseInt(ele.value)-1;
-
         }
         function visible_bgd(x) {
-            x.style.background='#bd0017';
+            x.style.boxShadow='0 0 10px #ff0000';
             // x.setAttribute('border','1px solid');
             var parent_id=x.id;
             var str_temp='btn_view_detail_';
@@ -100,7 +106,8 @@
             ele.style.display='block';
         }
         function disable_bgd(x) {
-            x.style.background='transparent';
+            //x.style.background='transparent';
+            x.style.boxShadow='none';
             var parent_id=x.id;
             var str_temp='btn_view_detail_';
             var ele_child_id=str_temp.concat(parent_id);
@@ -135,6 +142,12 @@
            j.setAttribute('value',quantity);
            f.appendChild(j);
 
+           var k = document.createElement("input"); //input element, cmd
+           k.setAttribute('type',"text");
+           k.setAttribute('name',"cmd");
+           k.setAttribute('value','add');
+           f.appendChild(k);
+
             //and some more input elements here
             //and dont forget to add a submit button
            document.getElementsByTagName('body')[0].appendChild(iFrame);
@@ -152,6 +165,10 @@
            //dissmiss modal
            var ele=document.getElementById('btn_dismiss_modal');
            ele.click();
+
+           //update total_cart
+           var ele_total_cart=document.getElementById('total_cart');
+           ele_total_cart.value=parseInt(ele_total_cart.value)+parseInt(quantity);
        }
 
         function click_modal(productId, productName, price, productImg) {
@@ -172,12 +189,12 @@
     }
 
     .infor_product{
-        text-align: center;
+        text-align: center ;
     }
 
     .view_detail_product{
         display: none;
-        background-color: red;
+        background-color: #bd0017;
         color: #ffffff !important;
         font-size: 15px;
         border-radius: 15px;
@@ -242,8 +259,8 @@
 
     .price{
         color: #bd0017;
-
         font-size: 20px;
+        padding-left: 150px;
     }
 
     .option{

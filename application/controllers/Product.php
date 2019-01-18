@@ -10,6 +10,7 @@ class Product extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('product_model');
+        $this->load->library('session');
     }
 
     public function add_product(){
@@ -54,8 +55,12 @@ class Product extends CI_Controller{
         //load all menu
         $this->load->model('menu_model');
         $menus=$this->menu_model->get('');
+        //get total_cart
+        $total_cart=$this->session->userdata('total_cart');
+
         //load header
-        $this->load->view('/shared/header',array('menus'=>$menus));
+        $this->load->view('/shared/header',array('menus'=>$menus,
+            'total_cart'=>$total_cart));
         $this->load->view('promotion');
         //
         $this->load->view('list_product',$data);
