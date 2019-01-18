@@ -4,7 +4,7 @@
 <html>
 <script>
     function convert_number(num){
-        return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        return (num).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+' VNĐ';
     }
 </script>
 <body>
@@ -172,10 +172,10 @@
        }
 
         function click_modal(productId, productName, price, productImg) {
-
+            console.log(price);
             document.getElementById("modal-productName").innerHTML = productName;
             document.getElementById("modal-productId").setAttribute('value',productId);
-            document.getElementById("modal-price").innerHTML = price;
+            document.getElementById("modal-price").innerHTML = ''+convert_number(parseInt(price));
             document.getElementById('modal-productImg').setAttribute('src','<?=$GLOBALS['base_url'];?>'+'/assets/product_img/'.concat(productImg));
         }
     </script>
@@ -260,7 +260,7 @@
     .price{
         color: #bd0017;
         font-size: 20px;
-        padding-left: 150px;
+        padding-left: 80px;
     }
 
     .option{

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>McDonald's</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
 </head>
 <body>
     <div class="header">
@@ -43,9 +45,10 @@
 <!--                        <a href="--><?//=$GLOBALS['base_url'].'/index.php/cart/view_cart' ?><!--" class="nav-link nav-header" href="#">Giỏ hàng</a>-->
 <!--                    </li>-->
                     <a href="<?=$GLOBALS['base_url'].'/index.php/cart/view_cart' ?>" class="location">
-
-                        <img class="img-cart" src="<?=$GLOBALS['base_url'].'/assets/product_img/cart.png'?>">
-
+                        <span  style="font-size: 35px; color: orange; margin-left: 15px">
+                            <i class="fas fa-cart-plus"></i>
+                        </span>
+<!--                        <img class="img-cart" src="--><?//=$GLOBALS['base_url'].'/assets/product_img/cart2.png'?><!--">-->
                         <div style="display: inline-block">
                                 <input id="total_cart" class="total_cart" value=<?=!isset($total_cart) ? 0 : $total_cart?> >
                         </div>
@@ -133,6 +136,7 @@
         display: inline-block;
         width: 45%;
         padding: 0 0 0 20px;
+        fill: orange;
     }
 
     .total_cart{
@@ -143,7 +147,7 @@
         background-color: #bd0017;
         /*margin-top: 15px;*/
         margin-left: 15px;
-        padding-top: 16px;
+        /*padding-top: 0px;*/
         color: white;
         font-size: 20px;
     }

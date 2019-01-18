@@ -2,6 +2,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <html>
+<script>
+    function convert_number(num){
+        return (num).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+' VNĐ';
+    }
+</script>
 <body>
     <div class="container">
         <div class="title">
@@ -19,7 +24,7 @@
                 foreach ($cart as $product): $total_to_be_purchased+=$product['quantity']*$product['Price']?>
                     <div class="row" id=<?='product_'.$product['ProductId']?> >
                         <div class="col-6 ">
-                            <div class="row ">
+                            <div class="row row-cus">
                                 <div class="col-12 col-cus">
                                     <a class="btn btn-primary btn-deletion" id=<?= "btn_deletion_".$product['ProductId']?> onclick="update_cart(<?=$product['ProductId']?>,0)">X</a>
                                     <span class="title-product"><?php echo $product['ProductName']?></span>
@@ -31,8 +36,8 @@
                             </div>
                         </div>
                         <div class="col-6 tt-price">
-                            <div class="row ">
-                                <div class="col-4 price col-cus"><?php echo $product['Price']?></div>
+                            <div class="row row-cus">
+                                <div class="col-4 price col-cus"><script>document.write(convert_number(<?php echo $product['Price']?>))</script></div>
                                 <div class="col-4 select-quantity col-cus">
                                     <div style="float: left;margin-left:35px;margin-top: -3px">
                                         <a class="btn btn-inc-dec" onclick="quantity_dec(<?= $product['ProductId']?>); update_cart(<?=$product['ProductId']?>, get_val('<?= 'quantity'.$product['ProductId']?>'),<?=$product['Price']?>)" > - </a>
@@ -45,7 +50,12 @@
                                     </div>
                                 </div>
                                 <div class="col-4 col-cus" >
-                                    <input id=<?='tt_'.$product['ProductId']?> value="<?= $product['Price']*$product['quantity']?>" class="tt" >
+                                    <input id=<?='tt_'.$product['ProductId']?> value='<?= $product['Price']*$product['quantity']?>'  class="tt" hidden>
+                                    <span id=<?= 'tt_per_product_'.$product['ProductId']?>>
+                                        <script>
+                                            document.write(convert_number(<?= $product['Price']*$product['quantity']?>))
+                                        </script>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +70,16 @@
                 <div class="col-12">
                     <label><span style="font-weight: bold; color: #191919">TỔNG THÀNH TIỀN</span></label>
                     <br>
-                    <input id="ttt" class="ttt" value=<?= isset($total_to_be_purchased) ? $total_to_be_purchased : 0 ?> >
+<!--                    <input id="ttt" class="ttt" value="--><?//= isset($total_to_be_purchased) ? $total_to_be_purchased : 0 ?><!--" hidden>-->
+                    <label style="width: 150px">
+                        <span id='ttt' class="ttt">
+                        <?php if(isset($total_to_be_purchased)):?>
+                            <script>document.write(convert_number(parseInt(<?=$total_to_be_purchased?>)))</script>
+                        <?php else:?>
+                            <script>document.write('0 VNĐ')</script>
+                        <?php endif;?>
+                    </span>
+                    </label>
                     <br>
                     <br>
                     <a class="btn btn-primary btn-order">ĐẶT HÀNG</a>
@@ -101,20 +120,28 @@
     }
 
     function update_cart(product_id, quantity, price) {
+        console.log(price);
+        console.log(quantity);
+
         //update tổng tiền của từng sản phẩm selected
-        if(!isNaN(price)){
+        if(!isNaN(price) && quantity!=0){
             //update tổng tiền sp thay đổi
-            document.getElementById('tt_'.concat(product_id)).value=quantity*price;
+            var ele=document.getElementById('tt_'.concat(product_id));
+            ele.value=quantity*price;
+            document.getElementById('tt_per_product_'+product_id).innerHTML=convert_number(parseInt(quantity*price));
+            //
         }else{
             //delete element
             var ele_to_be_deleted =document.getElementById('product_'.concat(product_id));
             ele_to_be_deleted.remove();
             //console.log(ele_to_be_deleted);
+            //update cart
+            document.getElementById('total_cart').value=0;
         }
         //update tổng thành tiền
         var ttt=0;//biến lưu tổng thành tiền
         var all_ele_tt=document.getElementsByClassName('tt');//get all input thành tiền của từng sp trong cart
-        console.log(all_ele_tt.length);
+        // console.log(all_ele_tt.length);
         if(all_ele_tt.length >0 ){
             var index=0;
             do{
@@ -122,7 +149,7 @@
                 index++;
             }while(all_ele_tt[index]);
         }
-        document.getElementById('ttt').value=ttt;
+        document.getElementById('ttt').innerHTML=convert_number(parseInt(ttt));
 
         //create form dynamically cover infor cart
         var f = document.createElement("form");
@@ -230,7 +257,6 @@
         text-align: center;
         font-size: 20px;
         width: 150px;
-
     }
 
     .btn-order{
@@ -257,6 +283,10 @@
 
     .col-cus{
         background-color: #bbbbbb;
+    }
+
+    .row-cus{
+        height: 34px;
     }
 
 </style>
