@@ -26,7 +26,7 @@
                         <div class="col-6 ">
                             <div class="row row-cus">
                                 <div class="col-12 col-cus">
-                                    <a class="btn btn-primary btn-deletion" id=<?= "btn_deletion_".$product['ProductId']?> onclick="update_cart(<?=$product['ProductId']?>,0)">X</a>
+                                    <a class="btn btn-primary btn-deletion" id=<?= "btn_deletion_".$product['ProductId']?> onclick="update_cart(<?=$product['ProductId']?>,get_val('<?='quantity'.$product['ProductId']?>'),'null','delete')">X</a>
                                     <span class="title-product"><?php echo $product['ProductName']?></span>
                                 </div>
                             </div>
@@ -98,7 +98,9 @@
 <script>
 
     function get_val(element_id) {
+        console.log(element_id);
         var ele=document.getElementById(element_id);
+        console.log(ele.value);
         return ele.value;
     }
 
@@ -112,14 +114,15 @@
 
     function quantity_dec(product_id) {
         var ele=document.getElementById('quantity'.concat(product_id));
-        if(ele.value != 1)
+        if(ele.value != 1){
             ele.value = parseInt(ele.value)-1;
-        //update total_cart
-        var ele_total_cart=document.getElementById('total_cart');
-        ele_total_cart.value=parseInt(ele_total_cart.value)-1;
+            //update total_cart
+            var ele_total_cart=document.getElementById('total_cart');
+            ele_total_cart.value=parseInt(ele_total_cart.value)-1;
+        }
     }
 
-    function update_cart(product_id, quantity, price) {
+    function update_cart(product_id, quantity, price, cmd) {
         console.log(price);
         console.log(quantity);
 
@@ -136,7 +139,8 @@
             ele_to_be_deleted.remove();
             //console.log(ele_to_be_deleted);
             //update cart
-            document.getElementById('total_cart').value=0;
+            var ele = document.getElementById('total_cart');
+            ele.value-=quantity;
         }
         //update tổng thành tiền
         var ttt=0;//biến lưu tổng thành tiền
@@ -175,7 +179,16 @@
         j.setAttribute('name',"quantity");
         j.setAttribute('value',quantity);
         f.appendChild(j);
-
+        //neu click button delete thi se gui them lenh cmd = 'delete'
+        if(cmd){
+            if(cmd=='delete'){
+                var k = document.createElement("input"); //input element, cmd
+                k.setAttribute('type',"text");
+                k.setAttribute('name',"cmd");
+                k.setAttribute('value','delete');
+                f.appendChild(k);
+            }
+        }
         //and some more input elements here
         //and dont forget to add a submit button
         document.getElementsByTagName('body')[0].appendChild(iFrame);
@@ -208,7 +221,7 @@
     }
 
     .title-product{
-        margin-left: 30px;
+        margin-left: 50px;
         color: #191919;
         font-size: 20px;
         font-weight: bold;
@@ -276,9 +289,10 @@
     .btn-deletion{
         width: 30px;
         height: 30px;
-        padding: 0;
+        padding: 0 !important;
         display: inline-block;
-        /*margin-bottom: 1px !important;*/
+        position: absolute;
+        margin-top: 2px;
     }
 
     .col-cus{

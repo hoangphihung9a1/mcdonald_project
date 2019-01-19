@@ -49,7 +49,7 @@
                             <i class="fas fa-cart-plus"></i>
                         </span>
 <!--                        <img class="img-cart" src="--><?//=$GLOBALS['base_url'].'/assets/product_img/cart2.png'?><!--">-->
-                        <div style="display: inline-block">
+                        <div style="display: inline-block; position: absolute; margin-top: 5px">
                                 <input id="total_cart" class="total_cart" value=<?=!isset($total_cart) ? 0 : $total_cart?> >
                         </div>
                     </a>
@@ -146,7 +146,7 @@
         border: none;
         background-color: #bd0017;
         /*margin-top: 15px;*/
-        margin-left: 15px;
+        margin-left: 20px;
         /*padding-top: 0px;*/
         color: white;
         font-size: 20px;

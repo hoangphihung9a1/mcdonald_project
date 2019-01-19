@@ -18,7 +18,7 @@ class Cart extends CI_Controller{
         //var_dump($_POST);
         //redirect($GLOBALS['base_url'].'/index.php/product/list_product');
         $cart=$this->session->userdata('cart');
-//        var_dump($cart);
+//        var_dump($_POST);
 //        exit;
         if($cart==NULL) {
             $cart =array();
@@ -29,9 +29,8 @@ class Cart extends CI_Controller{
         );
 
         $cmd=$this->input->post('cmd');// tên lênh
-
         //nếu quantity = 0 thì xóa product khỏi cart else update normal
-        if($new_product_selected['quantity']==0){
+        if($cmd=='delete'){
             $product_id_to_be_deleted=$new_product_selected['product_id'];
             $i=0;
             foreach ($cart as $product_selected){
