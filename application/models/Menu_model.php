@@ -21,7 +21,7 @@ class Menu_model extends CI_model{
     }
 
     public function get($criteria){
-        if($criteria==NULL){
+        if($criteria==''){
             $this->db->select('*');
             return $this->db->get('menu')->result_array();
         }else{

@@ -35,6 +35,6 @@ class Product_model extends CI_Model{
 
     public function get_by_prd_id($product_id){
         $data=array('ProductId'=>$product_id);
-        return $this->db->get_where('product',$data)->result_array();
+        return $this->db->get_where('product',$data)->first_row();
     }
 }
