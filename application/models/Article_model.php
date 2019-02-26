@@ -28,6 +28,7 @@ class Article_model extends CI_Model {
 //        $result = $this->db->query($sql);
 //        return $result;
 //    }
+//123312313
 
 
     public function get_data(){
