@@ -96,6 +96,7 @@ class Cart extends CI_Controller{
             $i = 0;
             foreach ($cart as $product) {
                 $product_detail = $this->product_model->get_by_prd_id($product['product_id']);
+
                 $product_detail[0]['quantity'] = $product['quantity'];
                 $cart[$i] = $product_detail[0];
                 $i++;

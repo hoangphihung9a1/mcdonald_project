@@ -11,6 +11,7 @@ class Product extends CI_Controller{
         parent::__construct();
         $this->load->model('product_model');
         $this->load->library('session');
+        $this->load->helper('url');
     }
 
     public function add_product(){
@@ -28,7 +29,7 @@ class Product extends CI_Controller{
             );
             $rs=$this->product_model->insert($product);
             if($rs){
-                //redirect('http://localhost:8080/demo/ci/index.php/admin/homepage_view');
+                redirect($GLOBALS['base_url'].'/index.php/admin/homepage_view');
                 echo 'successful';
             }else{
                 $this->load->view('add_article',array(

@@ -1,3 +1,4 @@
+<head>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
 
@@ -6,14 +7,50 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
+<script>
+    function check() {
+        <?php if(isset($_GET['menu_id'])) :?>
+            document.getElementById('slt_menu_id').value=<?=$_GET['menu_id']?>;
+        <?php endif;?>
 
-<html>
+        <?php if($_GET['dateTo']!=''):?>
+        document.getElementById('criteria_search').value='2';
+        document.getElementById('dtp5').removeAttribute('hidden');
+        <?php endif;?>
+
+        <?php if(isset($_GET['storeId'])):?>
+            document.getElementById('slt_store').value=<?= $_GET['storeId']?>
+        <?php endif;?>
+    }
+</script>
+<title>Thống kê Product</title>
+</head>
+
 <body onload="check()">
 <div class="container">
+    <div class="dropdown">
+        <img src="<?=$GLOBALS['base_url'].'/assets/mm.png'?>" class=" avatar dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="<?=$GLOBALS['base_url'].'/index.php/admin/homepage_view'?>">Về trang chủ</a>
+            <a class="dropdown-item" href="<?=$GLOBALS['base_url'].'/index.php/user/logout'?>">Logout</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <select class="form-control" onchange="catch_value(this)" " >
+                <select id="slt_store" class="form-control" >
+                    <?php foreach ($stores as $store):?>
+                        <option value="<?= $store['StoreId']?>"><?= $store['StoreName']?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <select id="slt_menu_id" class="form-control"  " >
                 <?php foreach ($menus as $menu):?>
                     <option value=<?=$menu['MenuId']?> ><?= $menu['MenuName']?></option>
                 <?php endforeach;?>
@@ -38,7 +75,7 @@
         <div class='col-sm-3'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker4'>
-                        <input id="dtp_dateFrom" name="dateFrom" type='text' class="form-control" />
+                        <input id="dtp_dateFrom" name="dateFrom" placeholder="Chọn ngày" type='text' class="form-control" />
                         <script>
                             <?php if(isset($_GET['dateFrom'])):?>
                             document.getElementById('dtp_dateFrom').value='<?= $_GET['dateFrom']?>';
@@ -75,7 +112,8 @@
         <input id="dateFrom" name="dateFrom" hidden>
         <input id="dateTo" name="dateTo" hidden>
         <input id="page" name="page" hidden >
-        <input id="menu_id" name="menu_id" value="<?= $menus[0]['MenuId']?>" hidden>
+        <input id="menu_id" name="menu_id"  hidden>
+        <input id="storeId" name="storeId"  hidden>
     </form>
 
     <table class="table table-bordered">
@@ -104,36 +142,38 @@
     </table>
 <!--    Pagination-->
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <?php if(isset($total_page)):?>
-                <?php for($i=0;$i<$total_page;$i++):?>
-                    <li class="page-item"><a class="page-link" href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&menu_id='.$_GET['menu_id'].'&page='.($i+1)?>"><?=($i+1)?></a></li>
-                <?php endfor;?>
+        <ul class="pagination pagination-cus">
+            <?php if(isset($total_page)&&$total_page>0):?>
+                <?php (isset($_GET['page'])) ? $curr_page=$_GET['page'] : $curr_page=1; ?>
+                <li class="page-item" ><a id="page_first" class="page-link"  href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&page=1&storeId='.$_GET['storeId'].'&menu_id='.$_GET['menu_id']?>" > <span aria-hidden="true">&laquo;</span> </a></li>
+                <li class="page-item"><a id="page_previous" class="page-link"  href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&page='.($curr_page-1).'&storeId='.$_GET['storeId'].'&menu_id='.$_GET['menu_id']?>" ><span aria-hidden="true">Previous</span></a></li>
+                <li class="page-item"><a id="curr_page" class="page-link"  href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&page='.($curr_page).'&storeId='.$_GET['storeId'].'&menu_id='.$_GET['menu_id']?>" ><?=($curr_page)?></a></li>
+                <li class="page-item"><a id="page_next" class="page-link"  href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&page='.($curr_page+1).'&storeId='.$_GET['storeId'].'&menu_id='.$_GET['menu_id']?>" > Next </a></li>
+                <li class="page-item"><a id="page_last" class="page-link"  href="<?=$GLOBALS['base_url'].'/index.php/admin/thongke_product?dateFrom='.$_GET['dateFrom'].'&dateTo='.$_GET['dateTo'].'&page='.($total_page).'&storeId='.$_GET['storeId'].'&menu_id='.$_GET['menu_id']?>" > <span aria-hidden="true">&raquo;</span> </a></li>
             <?php endif;?>
-
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
         </ul>
     </nav>
 </div>
 </body>
-<script>
-    function check() {
-        <?php if($_GET['dateTo']!=''):?>
-            document.getElementById('criteria_search').value='2';
-            document.getElementById('dtp5').removeAttribute('hidden');
-        <?php endif;?>
+<style>
+    .avatar{
+        background-color: white;
+        border-radius: 25px;
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        top: 0;
+        right: 0px;
     }
+
+    .pagination-cus{
+        position: fixed;
+        bottom: 10px;
+        left: 40%;
+    }
+</style>
+<script>
+
 
     function catch_value(ele) {
         //document.getElementById('menu_id').value=menuId;
@@ -147,6 +187,8 @@
         if(ele.value=='2'){
             //ele_dateTo.removeAttribute('hidden');
             $(ele_dateTo).show();
+            document.getElementById('dtp_dateFrom').placeholder='Từ ngày';
+            document.getElementById('dtp_dateTo').placeholder='Đến ngày';
         }else if(ele.value=='1'){
             ele_dateTo.setAttribute("hidden","");
         }
@@ -160,6 +202,8 @@
             page=p_page;
         } else page=1;
         document.getElementById('page').value=page;
+        document.getElementById('storeId').value=document.getElementById('slt_store').value;
+        document.getElementById('menu_id').value=document.getElementById('slt_menu_id').value;
         document.getElementById('dateFrom').value=document.getElementById('dtp_dateFrom').value;
         if(document.getElementById('criteria_search').value==2){
             document.getElementById('dateTo').value=document.getElementById('dtp_dateTo').value;
@@ -195,6 +239,23 @@
         });
     }
 
+    //display pagination
+    <?php if(isset($total_page)):?>
+        <?php if ($total_page>1): ?>
+            <?php if($curr_page==1) :?>
+                document.getElementById('page_first').style.visibility='hidden';
+                document.getElementById('page_previous').style.visibility='hidden';
+            <?php elseif ($curr_page==$total_page): ?>
+                document.getElementById('page_next').style.visibility='hidden';
+                document.getElementById('page_last').style.visibility='hidden';
+            <?php endif;?>
+        <?php elseif ($total_page==1): ?>
+            document.getElementById('page_first').style.visibility='hidden';
+            document.getElementById('page_previous').style.visibility='hidden';
+            document.getElementById('page_next').style.visibility='hidden';
+            document.getElementById('page_last').style.visibility='hidden';
+        <?php endif;?>
+    <?php endif;?>
 </script>
 </html>
 

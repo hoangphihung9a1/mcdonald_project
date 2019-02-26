@@ -20,7 +20,7 @@ class Menu extends CI_Controller{
         }else{
             $rs=$this->Menu_model->add_menu($input['menu_name']);
             if($rs){
-                redirect($GLOBALS['base_url'].'/index.php/menu/list_all_menu');
+                redirect($GLOBALS['base_url'].'/index.php/admin/homepage_view');
             }else {
                 $this->load->view('add_menu');
             }
