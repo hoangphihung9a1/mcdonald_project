@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /*
  *baseURL
  */
-$GLOBALS['base_url']='http://localhost:8080/demo/McDonald';
+$GLOBALS['base_url']='http://localhost:80/mcdonald_project';
 
 /*
 |--------------------------------------------------------------------------
