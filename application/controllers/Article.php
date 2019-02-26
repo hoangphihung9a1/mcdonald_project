@@ -34,7 +34,7 @@ class Article extends CI_Controller
                 }else{
                     echo 'Lỗi';
                 }
-                redirect('http://localhost:80/mcdonald_project/index.php/Article/list_article');
+                redirect($GLOBALS['base_url'].'/index.php/Article/list_article');
             }else{
                 $this->load->view('add_article');
             }
@@ -145,8 +145,7 @@ class Article extends CI_Controller
 
 
 
-//       var_dump($id); exit;
-//        $data = $this->Article_model->get_data();
+
         $articles = $this->Article_model->get_data();
         $article1 = array("article1"=>$article,"articles2"=>$articles);
         $this->load->view('news',$article1);

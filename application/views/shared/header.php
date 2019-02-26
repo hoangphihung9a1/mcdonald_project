@@ -16,7 +16,7 @@
                         <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/McDonald%27s_logo.svg" alt="Smiley face" height="42" width="42">
                     </li>
                     <li class="nav-item nav-menu">
-                        <a class="nav-link nav-header" href="#">Trang chủ</a>
+                        <a class="nav-link nav-header" href="<?php $GLOBALS['base_url'].'/index.php/'?>">Trang chủ</a>
                     </li>
                     <li class="nav-item nav-menu">
                         <a class="nav-link nav-header" href="#">Tìm hiểu</a>
@@ -130,6 +130,7 @@
 
     a{
         text-decoration-line: none !important;
+        color: black;!important;
     }
 
     .img-cart{
