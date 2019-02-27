@@ -82,7 +82,7 @@
                     </label>
                     <br>
                     <br>
-                    <a class="btn btn-primary btn-order">ĐẶT HÀNG</a>
+                    <a class="btn btn-primary btn-order"  href="<?=$GLOBALS['base_url'].'/index.php/order/view_order' ?>">ĐẶT HÀNG</a>
                 </div>
             </div>
         </div>
