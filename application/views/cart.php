@@ -82,7 +82,7 @@
                     </label>
                     <br>
                     <br>
-                    <a class="btn btn-primary btn-order">ĐẶT HÀNG</a>
+                    <a class="btn btn-primary btn-order"  href="<?=$GLOBALS['base_url'].'/index.php/order/view_order' ?>">ĐẶT HÀNG</a>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
         f.setAttribute('id','f_cart');
         f.setAttribute('method',"post");
         f.setAttribute('action','<?=$GLOBALS['base_url'];?>'+'/index.php/Cart/add_product');
-        f.setAttribute("target", "transFrame");
+        f.setAttribute('target', 'transFrame');
 
         //create iframe to submit f_cart
         var iFrame=document.createElement('iframe');
@@ -193,6 +193,7 @@
         //and dont forget to add a submit button
         document.getElementsByTagName('body')[0].appendChild(iFrame);
         document.getElementsByTagName('body')[0].appendChild(f);
+
 
         document.getElementById("f_cart").submit();
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +59,7 @@
                         <img class="img-location" src="https://mcdonalds.vn/public/images/location.png">
                         <p style="display: inline-block"><span style="font-size: 12px"><span style="color: #ffffff">Hệ thống</span><br><span style="font-size: 15px; color: orange">Cửa hàng</span></p>
                     </a>
-                    <a href="" class="location">
+                    <a href="<?=$GLOBALS['base_url'].'/index.php/order/view_order' ?>" class="location">
                         <img class="img-location" src="https://mcdonalds.vn/public/images/delivery-menu.png">
                         <p style="display: inline-block"><span style="font-size: 12px"><span style="color: #ffffff">Giao hàng</span><br><span style="font-size: 15px; color: orange">McDelivery</span></p>
                     </a>

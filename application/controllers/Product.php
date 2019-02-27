@@ -58,7 +58,6 @@ class Product extends CI_Controller{
         $menus=$this->menu_model->get('');
         //get total_cart
         $total_cart=$this->session->userdata('total_cart');
-
         //load header
         $this->load->view('/shared/header',array('menus'=>$menus,
             'total_cart'=>$total_cart));
