@@ -6,7 +6,7 @@
 </header>
 <body class="container">
 <h1>Thêm mới menu</h1>
-<form method="post" action="<?= $GLOBALS['base_url'] ?>/index.php/menu/add_menu">
+<form method="post" action="<?= $GLOBALS['base_url'] ?>/index.php/admin/add_menu">
     <div class="form-group">
         <label for="exampleInputEmail1">Tên menu </label>
         <input name="menu_name" type="text" class="form-control" id="menu_name"  placeholder="Nhập vào tên menu">

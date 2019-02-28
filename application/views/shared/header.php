@@ -40,7 +40,7 @@
                         <a class="nav-link nav-header" href="#">Khuyến mãi</a>
                     </li>
                     <li class="nav-item nav-menu">
-                        <a class="nav-link nav-header" href="#">Tin tức</a>
+                        <a class="nav-link nav-header" href="<?= $GLOBALS['base_url'].'/index.php/Article/list_article2'?>">Tin tức</a>
                     </li>
 <!--                    <li class="nav-item nav-menu">-->
 <!--                        <a href="--><?//=$GLOBALS['base_url'].'/index.php/cart/view_cart' ?><!--" class="nav-link nav-header" href="#">Giỏ hàng</a>-->
