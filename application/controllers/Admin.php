@@ -8,7 +8,6 @@
 
 class Admin extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -162,24 +161,44 @@ class Admin extends CI_Controller
                     redirect($GLOBALS['base_url'] . '/index.php/admin/thongke_product');
                     break;
                 case 3:
-                    redirect($GLOBALS['base_url'] . '/index.php/menu/add_menu');
+                    redirect($GLOBALS['base_url'] . '/index.php/admin/quanli_menu');
                     break;
                 case 4:
-                    redirect($GLOBALS['base_url'] . '/index.php/product/add_product');
+                    redirect($GLOBALS['base_url'] . '/index.php/admin/quanli_product');
                     break;
                 case 5:
-                    redirect($GLOBALS['base_url'] . '/index.php/article/add_article');
+                    redirect($GLOBALS['base_url'] . '/index.php/admin/quanli_article');
                     break;
             }
         }
     }
 
-    public function quanli_menu(){
-        $this->load->model('menu_model');
-        $menus=$this->menu_model->get('');
-        $this->load->view('quanli_menu',array('menus'=>$menus));
+    public function quanli_menu()
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user']['Type'] == '1') {
+            $this->load->model('menu_model');
+            $menus = $this->menu_model->get('');
+            $this->load->view('quanli_menu', array('menus' => $menus));
+        }else{
+            redirect($GLOBALS['base_url'] . '/index.php/user/login');
+        }
     }
 
+    public function quanli_product()
+    {
+
+    }
+
+    public function quanli_article()
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user']['Type'] == '1') {
+            $this->load->model('article_model');
+            $articles = $this->article_model->get_data();
+            $this->load->view('list_article', array('articles' => $articles));
+        }else{
+            redirect($GLOBALS['base_url'] . '/index.php/user/login');
+        }
+    }
 
 }
 

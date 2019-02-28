@@ -26,9 +26,9 @@
                                 <option value="1">Thống kê Order</option>
                                 <option value="2">Thống kê Product</option>
                                 <?php if($_SESSION['user']['Type']==1):?>
-                                    <option value="3">Thêm menu</option>
-                                    <option value="4">Thêm sản phẩm</option>
-                                    <option value="5">Thêm tin tức</option>
+                                    <option value="3">Quản lí menu</option>
+                                    <option value="4">Quản lí sản phẩm</option>
+                                    <option value="5">Quản lí tin tức</option>
                                 <?php endif;?>
                             </select>
                         </div>

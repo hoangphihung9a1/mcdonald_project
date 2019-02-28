@@ -94,3 +94,13 @@
 .row-cus{
     height: 34px;
 }
+
+.avatar{
+    background-color: white;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    right: 0px;
+}

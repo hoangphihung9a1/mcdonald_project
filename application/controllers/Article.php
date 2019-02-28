@@ -19,61 +19,78 @@ class Article extends CI_Controller
 
     public function add_article()
     {
+        if(isset($_SESSION['user'])&&$_SESSION['user']['Type']=='1') {
 //        $input = $this->inputs('');
-        $input=$this->input->post();
-        if ($input) {
-            $article = array(
-                'Title' => $this->input->post('Title'),
-                'Content' => $this->input->post('Content'),
-                'ImageLink' => $this->input->post('ImageLink'),
-            );
-            $result = $this->Article_model->insert($article);
-            if ($result){
-                if (isset($_POST['Content'])){
-                    $article = $_POST['Content'];
-                }else{
-                    echo 'Lỗi';
+            $input = $this->input->post();
+            if ($input) {
+                $article = array(
+                    'Title' => $this->input->post('Title'),
+                    'Content' => $this->input->post('Content'),
+                    'ImageLink' => $this->input->post('ImageLink'),
+                );
+                $result = $this->Article_model->insert($article);
+                if ($result) {
+                    if (isset($_POST['Content'])) {
+                        $article = $_POST['Content'];
+                    } else {
+                        echo 'Lỗi';
+                    }
+                    redirect($GLOBALS['base_url'] . '/index.php/Article/list_article');
+                } else {
+                    $this->load->view('add_article');
                 }
-                redirect($GLOBALS['base_url'].'/index.php/Article/list_article');
-            }else{
+            } else {
                 $this->load->view('add_article');
             }
         }else{
-            $this->load->view('add_article');
+            redirect($GLOBALS['base_url'].'/index.php/user/login');
         }
     }
 
     public function list_article(){
-        $data = $this->Article_model->get_data();
-        $article = array("articles" =>$data);
-        $this->load->view('list_article', $article);
+        if(isset($_SESSION['user'])&&$_SESSION['user']['Type']=='1') {
+            $data = $this->Article_model->get_data();
+            $article = array("articles" => $data);
+            $this->load->view('list_article', $article);
+        }else{
+            redirect($GLOBALS['base_url'].'/index.php/user/login');
+        }
     }
 
     public function delete_article()
     {
-        $this->Article_model->delete_data($_POST);
+        if(isset($_SESSION['user'])&&$_SESSION['user']['Type']=='1') {
 
-        $data = $this->Article_model->get_data();
-        $article = array("articles"=>$data);
-        $this->load->view("list_article", $article);
+            $this->Article_model->delete_data($_POST);
+
+            $data = $this->Article_model->get_data();
+            $article = array("articles" => $data);
+            $this->load->view("list_article", $article);
+        }else{
+            redirect($GLOBALS['base_url'].'/index.php/user/login');
+        }
     }
 
     public function edit_article(){
-        $article = array();
-        $article_id = $_GET['id'];
-        if(isset($_GET['Title'])){
-            $data = array(
-                'Title' => $_GET['Title'],
-                'Content' => $_GET['Content'],
-                'ImageLink'=> $_GET['ImageLink']
-            );
-            $article = $this->Article_model->edit_article($article_id,$data);
-            redirect($GLOBALS['base_url'].'/index.php/Article/list_article');
+        if(isset($_SESSION['user'])&&$_SESSION['user']['Type']=='1') {
+            $article = array();
+            $article_id = $_GET['id'];
+            if (isset($_GET['Title'])) {
+                $data = array(
+                    'Title' => $_GET['Title'],
+                    'Content' => $_GET['Content'],
+                    'ImageLink' => $_GET['ImageLink']
+                );
+                $article = $this->Article_model->edit_article($article_id, $data);
+                redirect($GLOBALS['base_url'] . '/index.php/Article/list_article');
+            } else {
+                $articles = $this->Article_model->get_article($article_id);
+                $this->load->view('edit_article', array(
+                    'article' => $articles
+                ));
+            }
         }else{
-            $articles = $this->Article_model->get_article($article_id);
-            $this->load->view('edit_article',array(
-                'article'=>$articles
-            ));
+            redirect($GLOBALS['base_url'].'/index.php/user/login');
         }
 
 
@@ -141,12 +158,11 @@ class Article extends CI_Controller
         $this->load->view('/shared/header',array('menus'=>$menus,
             'total_cart'=>$total_cart));
         $article_id = $_GET['id'];
+
         $article = $this->Article_model->get_article($article_id);
 
 
 
-//       var_dump($id); exit;
-//        $data = $this->Article_model->get_data();
         $articles = $this->Article_model->get_data();
         $article1 = array("article1"=>$article,"articles2"=>$articles);
         $this->load->view('news',$article1);
