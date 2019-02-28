@@ -141,8 +141,8 @@ class Article extends CI_Controller
         $this->load->view('/shared/header',array('menus'=>$menus,
             'total_cart'=>$total_cart));
         $article_id = $_GET['id'];
-        $article = $this->Article_model->get_article($article_id);
 
+        $article = $this->Article_model->get_article($article_id);
 
 
 

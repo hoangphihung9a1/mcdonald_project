@@ -6,14 +6,14 @@
 </header>
 <body class="container">
 <h1>Danh sach danh mục bài viết</h1>
-<a href="http://localhost/mcdonald_project/index.php/Article/add_article" class="btn btn-primary">Thêm mới</a>
+<a href="<?php $GLOBALS['base_url'] ?>/index.php/Article/add_article" class="btn btn-primary">Thêm mới</a>
 <table class="table">
     <thead>
     <tr>
         <th scope="col">#ID</th>
-        <th scope="col">Ten danh muc</th>
+        <th scope="col">Tên Danh Mục</th>
         <th scope="col">Hình ảnh</th>
-        <th scope="col">Thao tac</th>
+        <th scope="col">Thao Tác</th>
     </thead>
     <tbody>
 
