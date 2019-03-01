@@ -20,6 +20,8 @@ class Order extends CI_Controller{
 
         // get all selected product's infor in cart
         $cart=$this->session->userdata('cart');
+        $this->load->model('store_model');
+        $stores=$this->store_model->get_all_store();
         if($cart!=NULL) {
             $this->load->model('product_model');
             $i = 0;
@@ -30,9 +32,10 @@ class Order extends CI_Controller{
                 $i++;
             }
 
-            $this->load->view('add_order', array('cart'=>$cart));
+            $this->load->view('add_order', array('cart'=>$cart,
+                'stores'=>$stores));
         }else {
-            $this->load->view('add_order');
+            $this->load->view('add_order',array('stores'=>$stores));
         }
 
     }

@@ -22,16 +22,16 @@
     <div class="form-group">
         <label for="exampleFormControlSelect1">Cua hang</label>
         <select class="form-control" name="store_id" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-
+            <?php foreach ($stores as $store):?>
+                <option value="<?=$store['StoreId']?>"><?=$store['StoreName']?></option>
+            <?php endforeach;?>
         </select>
     </div>
     <div class="form-group">
         <label for="payment_method">Phương thức thanh toán</label>
         <select name="payment_method" class="form-control" id="exampleFormControlSelect1">
-            <option value=1>Tiền mặt</option>
-            <option value=2>Không phải tiền mặt</option>
+            <option value="1">Tiền mặt</option>
+            <option value="2">Không phải tiền mặt</option>
         </select>
     </div>
     <div class="form-group form-check">
